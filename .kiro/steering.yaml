@@ -1,0 +1,12 @@
+goals:
+  - Keep the code beginner-friendly and easy to read.
+  - Maintain clear separation between data storage and user interface.
+  - Ensure the app runs cross-platform.
+guidelines:
+  - Use simple Python built-ins (no complex dependencies).
+  - Comment code for clarity.
+  - Keep functions short and focused.
+future_improvements:
+  - Add due dates to tasks.
+  - Allow editing task names.
+  - Create a simple GUI version.

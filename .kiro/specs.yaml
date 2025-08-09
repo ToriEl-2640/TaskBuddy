@@ -1,0 +1,12 @@
+project_name: TaskBuddy CLI
+version: 1.0
+description: A beginner-friendly Python command-line to-do list app with add, list, mark done, and delete features.
+features:
+  - Add tasks with a title
+  - List all tasks with completion status
+  - Mark tasks as done
+  - Delete tasks
+  - Store tasks in a JSON file
+requirements:
+  - Python 3.x
+  - Runs in PowerShell, CMD, or Bash
