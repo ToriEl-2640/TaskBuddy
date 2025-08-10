@@ -41,5 +41,10 @@ The .kiro directory contains the project specs and hooks configuration files whi
 
 ---
 
+# Live Deployment
+https://taskbuddy-56t5.onrender.com
+
+---
+
 ## License
 This project is licensed under the MIT License.
