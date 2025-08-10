@@ -2,6 +2,9 @@
 
 TaskBuddy is a simple, stylish task manager CLI and web app built with Python and Flask. It features task management with add, toggle, delete functions, and a customizable abstract aesthetic frontend with background image options.
 
+<img width="1024" height="1024" alt="Taskbuddy Logo" src="https://github.com/user-attachments/assets/07343ea8-6493-49b0-8310-1b9955f52a82" />
+
+
 ---
 
 ## Features
