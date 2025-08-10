@@ -1,0 +1,85 @@
+{
+  "hooks": [
+    {
+      "name": "run_tests_on_save",
+      "description": "Automatically run tests when Python files are saved",
+      "trigger": {
+        "type": "file_save",
+        "pattern": "*.py"
+      },
+      "actions": [
+        {
+          "type": "shell_command",
+          "command": "python test_taskbuddy.py",
+          "working_directory": "."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "validate_tasks_json",
+      "description": "Validate tasks.json structure when modified",
+      "trigger": {
+        "type": "file_save",
+        "pattern": "tasks.json"
+      },
+      "actions": [
+        {
+          "type": "python_script",
+          "script": ".kiro/hooks/validate_tasks_json.py"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "generate_code_from_specs",
+      "description": "Generate code when specification files are updated",
+      "trigger": {
+        "type": "file_save",
+        "pattern": ".kiro/specs/*.yaml"
+      },
+      "actions": [
+        {
+          "type": "python_script",
+          "script": ".kiro/spec_to_code.py"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "manual_spell_check",
+      "description": "Check and fix grammar errors in README",
+      "trigger": {
+        "type": "manual",
+        "button_text": "Spell Check README"
+      },
+      "actions": [
+        {
+          "type": "ai_task",
+          "prompt": "Review and fix any grammar or spelling errors in the README.md file while preserving the original meaning and structure."
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "update_documentation",
+      "description": "Update documentation when code changes",
+      "trigger": {
+        "type": "file_save",
+        "pattern": "app.py"
+      },
+      "actions": [
+        {
+          "type": "ai_task",
+          "prompt": "Review the updated app.py file and update the README.md if any new features or significant changes were made."
+        }
+      ],
+      "enabled": false
+    }
+  ],
+  "settings": {
+    "auto_approve_safe_operations": true,
+    "log_hook_executions": true,
+    "max_concurrent_hooks": 3
+  }
+}

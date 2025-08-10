@@ -1,0 +1,71 @@
+project_name: TaskBuddy Enhanced Features
+version: 2.1
+description: Enhanced TaskBuddy with comprehensive hooks and API support
+
+features:
+  - RESTful API endpoints for task management
+  - Data consistency validation and normalization
+  - Error handling with backup and recovery
+  - Performance monitoring and metrics
+  - Comprehensive hook system integration
+  - Automated testing and validation
+
+api_endpoints:
+  - path: "/api/tasks"
+    method: "GET"
+    function: "get_all_tasks"
+    description: "Retrieve all tasks with normalized schema"
+    
+  - path: "/api/tasks"
+    method: "POST"
+    function: "create_task"
+    description: "Create a new task with validation"
+    
+  - path: "/api/tasks/<int:task_id>"
+    method: "GET"
+    function: "get_task"
+    description: "Retrieve a specific task by ID"
+    
+  - path: "/api/tasks/<int:task_id>"
+    method: "PUT"
+    function: "update_task"
+    description: "Update a specific task with validation"
+    
+  - path: "/api/tasks/<int:task_id>"
+    method: "DELETE"
+    function: "delete_task_api"
+    description: "Delete a specific task with hooks"
+
+  - path: "/api/metrics"
+    method: "GET"
+    function: "get_performance_metrics"
+    description: "Get performance metrics and system health"
+
+hook_events:
+  - before_task_add
+  - after_task_add
+  - before_task_toggle
+  - after_task_toggle
+  - before_task_delete
+  - after_task_delete
+  - on_data_corruption
+  - on_performance_threshold
+  - on_validation_error
+  - on_backup_created
+
+validation_rules:
+  - task_title_required
+  - task_title_max_length_200
+  - task_done_boolean
+  - no_html_in_title
+  - consistent_schema
+
+performance_thresholds:
+  - task_operation_max_100ms
+  - file_save_max_50ms
+  - api_response_max_200ms
+
+backup_strategy:
+  - auto_backup_before_write
+  - keep_last_10_backups
+  - daily_backup_cleanup

@@ -97,16 +97,22 @@
 
     form.add-task input {
       color: #222;
-      background: transparent;
+      background: rgba(255, 255, 255, 0.9);
       border: 2px solid rgba(0, 102, 204, 0.7);
       border-radius: 20px 0 0 20px;
       padding: 1rem 1.2rem;
       font-size: 1.15rem;
       outline: none;
+      flex-grow: 1;
     }
 
     form.add-task input::placeholder {
       color: rgba(34, 34, 34, 0.6);
+    }
+
+    form.add-task input:focus {
+      background: rgba(255, 255, 255, 1);
+      border-color: #005bbb;
     }
 
     form.add-task button {
@@ -114,6 +120,7 @@
       color: white;
       font-weight: 700;
       cursor: pointer;
+      border: none;
       border-radius: 0 20px 20px 0;
       padding: 1rem 2rem;
       font-size: 1.15rem;
@@ -188,7 +195,7 @@
       <div class="task {% if task.done %}done{% endif %}">
         <input type="checkbox" {% if task.done %}checked{% endif %}
                onchange="toggleTask('{{ idx }}')">
-        <span>{{ task.name }}</span>
+        <span>{{ task.title or task.name or 'Untitled Task' }}</span>
         <button onclick="deleteTask('{{ idx }}')">&times;</button>
       </div>
     {% endfor %}
@@ -213,14 +220,29 @@
     <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=300&q=80" alt="Default BG 3" data-url="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1470&q=80" />
     <img src="https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=300&q=80" alt="Default BG 4" data-url="https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=1470&q=80" />
     <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=300&q=80" alt="Default BG 5" data-url="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1470&q=80" />
-    <img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=300&q=80" alt="Default BG 6" data-url="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=1470&q=80" />
+    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=300&q=80" alt="Default BG 6" data-url="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1470&q=80" />
     <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=300&q=80" alt="Default BG 7" data-url="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1470&q=80" />
     <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=300&q=80" alt="Default BG 8" data-url="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=1470&q=80" />
-    <img src="https://images.unsplash.com/photo-1499084732479-de2c02d45fc4?auto=format&fit=crop&w=300&q=80" alt="Default BG 9" data-url="https://images.unsplash.com/photo-1499084732479-de2c02d45fc4?auto=format&fit=crop&w=1470&q=80" />
+    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=300&q=80" alt="Default BG 9" data-url="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1470&q=80" />
     <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=300&q=80" alt="Default BG 10" data-url="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1470&q=80" />
   </div>
 
   <script>
+    // Load saved background on page load
+    window.addEventListener('load', function() {
+      const savedBg = localStorage.getItem('taskbuddy-background');
+      if (savedBg) {
+        setBackground(savedBg);
+      }
+    });
+
+    function setBackground(url) {
+      document.body.style.backgroundImage = `url('${url}')`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center';
+      localStorage.setItem('taskbuddy-background', url);
+    }
+
     function toggleTask(id) {
       fetch(`/toggle/${id}`, { method: 'POST' })
         .then(() => location.reload());
@@ -248,9 +270,7 @@
       .then(response => response.json())
       .then(data => {
         if (data.image_url) {
-          document.body.style.backgroundImage = `url('${data.image_url}')`;
-          document.body.style.backgroundSize = 'cover';
-          document.body.style.backgroundPosition = 'center';
+          setBackground(data.image_url);
         } else {
           alert('Error: ' + data.error);
         }
@@ -262,9 +282,7 @@
     document.querySelectorAll('.default-bg-gallery img').forEach(img => {
       img.addEventListener('click', () => {
         const url = img.getAttribute('data-url');
-        document.body.style.backgroundImage = `url('${url}')`;
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center';
+        setBackground(url);
       });
     });
   </script>

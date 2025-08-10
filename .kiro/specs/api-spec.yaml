@@ -1,0 +1,42 @@
+project_name: TaskBuddy API
+version: 2.0
+description: RESTful API specification for TaskBuddy task management
+
+api_endpoints:
+  - path: "/api/tasks"
+    method: "GET"
+    function: "get_all_tasks"
+    description: "Retrieve all tasks"
+    
+  - path: "/api/tasks"
+    method: "POST"
+    function: "create_task"
+    description: "Create a new task"
+    
+  - path: "/api/tasks/<int:task_id>"
+    method: "GET"
+    function: "get_task"
+    description: "Retrieve a specific task"
+    
+  - path: "/api/tasks/<int:task_id>"
+    method: "PUT"
+    function: "update_task"
+    description: "Update a specific task"
+    
+  - path: "/api/tasks/<int:task_id>"
+    method: "DELETE"
+    function: "delete_task"
+    description: "Delete a specific task"
+
+hook_events:
+  - before_api_request
+  - after_api_response
+  - on_validation_error
+  - on_task_not_found
+
+features:
+  - RESTful API endpoints for task management
+  - JSON request/response format
+  - Error handling with appropriate HTTP status codes
+  - Request validation
+  - Hook integration for all operations

@@ -43,5 +43,3 @@ The .kiro directory contains the project specs and hooks configuration files whi
 
 ## License
 This project is licensed under the MIT License.
-
-
